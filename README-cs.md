@@ -1,5 +1,5 @@
 🌍
-*[Čeština](README-cs.md) ∙ [Ελληνικά](README-el.md) ∙ [English](README.md) ∙ [Español](README-es.md) ∙ [Français](README-fr.md) ∙ [Italiano](README-it.md) ∙ [日本語](README-ja.md) ∙ [한국어](README-ko.md) ∙ [Português](README-pt.md) ∙ [Русский](README-ru.md) ∙ [Slovenščina](README-sl.md) ∙ [Українська](README-uk.md) ∙ [简体中文](README-zh.md) ∙ [繁體中文](README-zh-Hant.md)*
+*[Čeština](README-cs.md) ∙ [Deutsch](README-de.md) ∙ [Ελληνικά](README-el.md) ∙ [English](README.md) ∙ [Español](README-es.md) ∙ [Français](README-fr.md) ∙ [Indonesia](README-id.md) ∙ [Italiano](README-it.md) ∙ [日本語](README-ja.md) ∙ [한국어](README-ko.md) ∙ [Português](README-pt.md) ∙ [Română](README-ro.md) ∙ [Русский](README-ru.md) ∙ [Slovenščina](README-sl.md) ∙ [Українська](README-uk.md) ∙ [简体中文](README-zh.md) ∙ [繁體中文](README-zh-Hant.md)*
 
 # Umění příkazové řádky
 
@@ -262,15 +262,15 @@ Příklady:
 
 - Ladění Javy je odlišný šálek čaje, ale jednoduchý trik na Javu od Oraclu a některé jiné JVM je, že stále můžete použít `kill -3 <pid>` a výpis zásobníku a haldy (včetně obecnějších detailů z **garbage collectoru**, které mohou být nesmírně informativní) bude zapsán do stderr/logs. Nástroje JDK jako `jps`, `jstat`, `jstack` a `jmap` jsou také užitečné, avšak [SJK tools](https://github.com/aragozin/jvm-tools)  jsou více pokročilé.
 
-- Použijte `mtr` jako lepší `traceroute` pro identifikování potíží se sítí.
+- Použijte [`mtr`](http://www.bitwizard.nl/mtr/) jako lepší `traceroute` pro identifikování potíží se sítí.
 
-- Při zjištování proč je disk plný, `ncdu` šetří čas oproti obvyklým příkazům jako `du /sh *`.
+- Při zjištování proč je disk plný, [`ncdu`](https://dev.yorhel.nl/ncdu) šetří čas oproti obvyklým příkazům jako `du /sh *`.
 
-- Ke zjištění, který socket nebo proces zahlcuje pásmo, zkuste `iftop` nebo `nethogs`.
+- Ke zjištění, který socket nebo proces zahlcuje pásmo, zkuste [`iftop`](http://www.ex-parrot.com/~pdw/iftop/) nebo [`nethogs`](https://github.com/raboof/nethogs).
 
 - Nástroj `ab` (přibalený k Apachi) je užitečný pro rychlé a hrubé zkontrolování výkonosti webového serveru. Komplexnější měření umožňuje `siege`.
 
-- Pro důslednější síťové ladění, `wireshark`, `tshark` nebo `ngrep` jsou to pravé.
+- Pro důslednější síťové ladění, [`wireshark`](https://wireshark.org/), [`tshark`](https://www.wireshark.org/docs/wsug_html_chunked/AppToolstshark.html) nebo [`ngrep`](http://ngrep.sourceforge.net/) jsou to pravé.
 
 - Nezapomínejte na `strace` a `ltrace`. Mohou být nápomocné zejména pokud některý program selhává, zasekává se nebo padá a nevíte proč nebo pokud chcete mít obecnou představu o výkonu. Myslete na přepínač profilingu (`-c`) a schopnost připnout se k běžícímu procesu (`-p`).
 
@@ -280,7 +280,7 @@ Příklady:
 
 - Používejte `/proc`. Je úžasně nápomocný v okamžicích, kdy ladíte živé problémy. Příklady: /proc/cpuinfo`, `/proc/meminfo`, `/proc/cmdline`, `/proc/xxx/cwd`, `/proc/xxx/exe`, `/proc/xxx/fd/`, `/proc/xxx/smaps` (kde `xxx` je id nebo pid procesu.).
 
-- Když zjišťujete proč se něco v minulosti pokazilo, `sar` může být nedocenitelný. Ukazuje historické statistiky CPU, paměti, sítě, atd.
+- Když zjišťujete proč se něco v minulosti pokazilo, [`sar`](http://sebastien.godard.pagesperso-orange.fr/) může být nedocenitelný. Ukazuje historické statistiky CPU, paměti, sítě, atd.
 
 - Pro hlubší systémovou a výkonostní analýzu se podívejte na `stap`([SystemTap](https://sourceware.org/systemtap/wiki)), [`perf`](https://en.wikipedia.org/wiki/Perf_(Linux)), a [`sysdig`](https://github.com/draios/sysdig).
 
@@ -428,15 +428,15 @@ Pár příkladů na spojování příkazů:
 
 - `strace`: ladění systému
 
-- `mtr`: vylepšení traceroute pro síťové ladění
+- [`mtr`](http://www.bitwizard.nl/mtr/): vylepšení traceroute pro síťové ladění
 
 - `cssh`: vizuální souběžný shell
 
 - `rsync`: synchronizuje soubory a adresáře přes SSH nebo v lokálním systému souborů
 
-- `wireshark` a `tshark`: zachytávání packetů a síťové ladění
+- [`wireshark`](https://wireshark.org/) a [`tshark`](https://www.wireshark.org/docs/wsug_html_chunked/AppToolstshark.html): zachytávání packetů a síťové ladění
 
-- `ngrep`: grep pro síťovou vrstvu
+- [`ngrep`](http://ngrep.sourceforge.net/): grep pro síťovou vrstvu
 
 - `host` a `dig`: DNS vyhledávání
 
@@ -460,9 +460,9 @@ Pár příkladů na spojování příkazů:
 
 - `id`: informace o identitě uživatele/skupiny
 
-- `sar`: historické systémové statistiky
+- [`sar`](http://sebastien.godard.pagesperso-orange.fr/): historické systémové statistiky
 
-- `iftop` nebo `nethogs`: využití sítě pro proces nebo socket
+- [`iftop`](http://www.ex-parrot.com/~pdw/iftop/) nebo [`nethogs`](https://github.com/raboof/nethogs): využití sítě pro proces nebo socket
 
 - `ss`: statistika socketů
 

@@ -1,10 +1,13 @@
 🌍
-*[Čeština](README-cs.md) ∙ [Ελληνικά](README-el.md) ∙ [English](README.md) ∙ [Español](README-es.md) ∙ [Français](README-fr.md) ∙ [Italiano](README-it.md) ∙ [日本語](README-ja.md) ∙ [한국어](README-ko.md) ∙ [Português](README-pt.md) ∙ [Русский](README-ru.md) ∙ [Slovenščina](README-sl.md) ∙ [Українська](README-uk.md) ∙ [简体中文](README-zh.md) ∙ [繁體中文](README-zh-Hant.md)*
+*[Čeština](README-cs.md) ∙ [Deutsch](README-de.md) ∙ [Ελληνικά](README-el.md) ∙ [English](README.md) ∙ [Español](README-es.md) ∙ [Français](README-fr.md) ∙ [Indonesia](README-id.md) ∙ [Italiano](README-it.md) ∙ [日本語](README-ja.md) ∙ [한국어](README-ko.md) ∙ [Português](README-pt.md) ∙ [Română](README-ro.md) ∙ [Русский](README-ru.md) ∙ [Slovenščina](README-sl.md) ∙ [Українська](README-uk.md) ∙ [简体中文](README-zh.md) ∙ [繁體中文](README-zh-Hant.md)*
 
 
 # Umetnost ukazne vrstice
 
+[![Vprašajte](https://img.shields.io/badge/%3f-Ask%20a%20Question-ff69b4.svg)](https://airtable.com/shrzMhx00YiIVAWJg)
+
 [![Join the chat at https://gitter.im/jlevy/the-art-of-command-line](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/jlevy/the-art-of-command-line?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 
 - [Meta](#meta)
 - [Osnove](#osnove)
@@ -29,7 +32,7 @@ se je [prvotno](http://www.quora.com/What-are-some-lesser-known-but-useful-Unix-
 [pojavilo](http://www.quora.com/What-are-the-most-useful-Swiss-army-knife-one-liners-on-Unix)
 na [Quori](http://www.quora.com/What-are-some-time-saving-tips-that-every-Linux-user-should-know),
 vendar se je premaknilo na GitHub, kjer so ljudje bolj talentirani od prvotnega avtorja naredili številne izboljšave.
-[**Prosimo, prispevajte**](/CONTRIBUTING.md), če vidite napako ali nekaj, kar bi lahko bilo boljše!
+[**Vprašajte**](https://airtable.com/shrzMhx00YiIVAWJg), če imate vprašanje povezano z ukazno vrstico. [**Prosimo, prispevajte**](/CONTRIBUTING.md), če vidite napako ali nekaj, kar bi lahko bilo boljše!
 
 ## Meta
 
@@ -98,7 +101,6 @@ Opombe:
       cat hosts | xargs -I{} ssh root@{} hostname
 ```
 
-
 - `pstree -p` je priročen prikaz drevesa procesov.
 
 - Uporabite `pgrep` in `pkill`, da najdete ali signalizirate procese po imenu (`-f` je v pomoč).
@@ -136,13 +138,20 @@ Opombe:
       # continue in original dir
 ```
 
-- V Bash-u bodite pozorni, saj je veliko vrst razširjenih spremenljivk. Preverjanje, če spremenljivka obstaja: `${name:?error message}`. Na primer, če skripta Bash zahteva en argument, samo napišite `input_file=${1:?usage: $0 input_file}`. Aritmetična raširitev: `i=$(( (i + 1) % 5 ))`. Sekvence: `{1..10}`. Obrezovanje nizov: `${var%suffix}` in `${var#prefix}`. Na primer, če je `var=foo.pdf`, potem `echo ${var%.pdf}.txt` izpiše `foo.txt`.
+- V Bash-u bodite pozorni, saj je veliko vrst razširjenih spremenljivk. Preverjanje, če spremenljivka obstaja: `${name:?error message}`. Na primer, če skripta Bash zahteva en argument, samo napišite `input_file=${1:?usage: $0 input_file}`. Uporaba privzete vrednosti, če je spremenljivka prazna: `${name:-default}`. Če želite, imeti dodatni (opcijski) parameter dodan k prejšnjemu primeru, lahko uporabite nekaj takega `output_file=${2:-logfile}`. Če je $2 izpuščen in tako prazen, bo `output_file`  nastavljen na `logfile`. Aritmetična raširitev: `i=$(( (i + 1) % 5 ))`. Sekvence: `{1..10}`. Obrezovanje nizov: `${var%suffix}` in `${var#prefix}`. Na primer, če je `var=foo.pdf`, potem `echo ${var%.pdf}.txt` izpiše `foo.txt`.
 
 - Lupinska razširitev zavitih oklepajev z `{`...`}` lahko pomaga zmanjšati potrebo po ponovnem vpisovanju podobnega teksta in avtomatizira kombiniranje elementov. To je v pomoč v primerih kot je `mv foo.{txt,pdf} some-dir` (ki premakne obe datoteki), `cp somefile{,.bak}` (kar razširi v `cp somefile somefile.bak`) ali `mkdir -p test-{a,b,c}/subtest-{1,2,3}` (kar razširi vse možne kombinacije in ustvari drevo direktorijev).
 
 - Izpis ukaza se lahko tretira kot datoteko preko `<(some command)`. Na primer, primerjajte lokalno `/etc/hosts` z oddaljeno:
 ```sh
       diff /etc/hosts <(ssh somehost cat /etc/hosts)
+```
+
+- Ko pišete skripte, boste morda želeli dati vašo kodo v zavite oklepaje. Če zapirajoči se oklepaj manjka, se vaša skripta ne bo izvršila zaradi sintaktične napake. To je smiselno, ko se vašo skripto prenese iz spleta, saj preprečuje izvrševanje delno prenešene skripte:
+```bash
+{
+    # Vaša koda
+}
 ```
 
 - Spoznajte t.i. "here" dokumente v Bash-u, kot pri `cat <<EOF ...`.
@@ -182,7 +191,9 @@ Opombe:
 - Za enostaven spletni strežnik za vse datoteke v trenutnem direktoriju (in poddirektorijih), ki so na voljo komurkoli v vašem omrežju, uporabite:
 `python -m SimpleHTTPServer 7777` (za port 7777 in Python 2) in `python -m http.server 7777` (za port 7777 in Python 3).
 
-- Za pogon ukaza s privilegiji, uporabite `sudo` (za root) ali `sudo -u` (za drugega uporabnika). Uporabite `su` ali `sudo bash`, da dejansko poženete lupino kot ta uporabnik. Uporabite `su -`, da simulirate svežo prijavo kot root ali drug uporabnik.
+- Za pogon ukaza pod drugim uporabnikom, uporabite `sudo`. Privzeto požene kot root; uporabite `-u`, da določite drugega uporabnika. Uporabite `-i` za prijavo tega uporabnika (vprašalo vas bo za _vaše_ geslo).
+
+- Za preklop lupine na drugega uporabnika, uporabite `su username` ali `su - username`. Dodajte `-`, da dobite okolje, kakor da bi se uporabnik ravnokar prijavil. Izpustitev uporabniškega imena pomeni privzeto root. Vprašani boste za geslo _uporabnika na katerega preklapljate_.
 
 - Spoznajte [omejitev 128K](https://wiki.debian.org/CommonErrorMessages/ArgumentListTooLong) v ukaznih vrsticah. Ta napaka "Argument list too long" je pogosta, ko se nadomestni znak ujema z velikim številom datotek. (Ko se to zgodi, lahko pomagajo alternative kot sta `find` in `xargs`.)
 
@@ -297,15 +308,15 @@ mkdir empty && rsync -r --delete empty/ some-dir && rmdir some-dir
 
 - Sistemsko razhroščevanje Java je drugačen tip, vendar enostaven trik na JVM-jih Oracle-a in nekaterih ostalih je, da lahko poženete `kill -3 <pid>` in sledite celotnemu stack-u in povzetku kopic (vključno s podrobnostmi zbirke splošnih smeti, ki so lahko zelo informativne), ki bodo oddane v stderr/logs. JDK-jevi `jps`, `jstat`, `jstack`, `jmap` so uporabni. [SJK Tools](https://github.com/aragozin/jvm-tools) so bolj napredni.
 
-- Uporabite `mtr` kot boljši usmerjevalnik sledenja za identifikacijo težav omrežja.
+- Uporabite [`mtr`](http://www.bitwizard.nl/mtr/) kot boljši usmerjevalnik sledenja za identifikacijo težav omrežja.
 
-- Za iskanje, zakaj je disk poln, vam `ncdu` prihrani čas preko običajnih ukazov kot je `du -sh *`.
+- Za iskanje, zakaj je disk poln, vam [`ncdu`](https://dev.yorhel.nl/ncdu) prihrani čas preko običajnih ukazov kot je `du -sh *`.
 
-- Da najdete katera vtičnica ali proces uporablja pasovno širino, poskusite `iftop` ali `nethogs`.
+- Da najdete katera vtičnica ali proces uporablja pasovno širino, poskusite [`iftop`](http://www.ex-parrot.com/~pdw/iftop/) ali [`nethogs`](https://github.com/raboof/nethogs).
 
 - Orodje `ab` (prihaja z Apache-jem) je v pomoč za hitro in nečisto preverjanje uspešnosti spletnega strežnika. Za bolj kompleksno testiranje nalaganja poskusite `siege`.
 
-- Za bolj resno razhroščevanje omrežja, `wireshark`, `tshark` ali `ngrep`.
+- Za bolj resno razhroščevanje omrežja, [`wireshark`](https://wireshark.org/), [`tshark`](https://www.wireshark.org/docs/wsug_html_chunked/AppToolstshark.html) ali [`ngrep`](http://ngrep.sourceforge.net/).
 
 - Poznajte `strace` in `ltrace`. Ta sta v pomoč, če program ni uspešen, se ustavlja ali poruši in ne veste zakaj, ali če želite dobiti splošno idejo o uspešnosti. Bodite pozorni na opcijo profiliranja (`-c`) in zmožnost dodajanja k procesu, ki se poganja (`-p`).
 
@@ -315,7 +326,7 @@ mkdir empty && rsync -r --delete empty/ some-dir && rmdir some-dir
 
 - Uporabite `/proc`. Včasih je izjemno v pomoč, ko se razhroščuje probleme v živo. Primeri: `/proc/cpuinfo`, `/proc/meminfo`, `/proc/cmdline`, ``/proc/xxx/cwd`,asdf `/proc/xxx/exe`, `/proc/xxx/fd/`, `/proc/xxx/smaps` (kjer je `xxx` id procesa ali pid).
 
-- Ko se razhroščuje, zakaj je šlo nekaj narobe v preteklosti, je lahko zelo uporaben `sar`. Prikazuje statistiko zgodovine na procesorju, spominu, omrežju itd.
+- Ko se razhroščuje, zakaj je šlo nekaj narobe v preteklosti, je lahko zelo uporaben [`sar`](http://sebastien.godard.pagesperso-orange.fr/). Prikazuje statistiko zgodovine na procesorju, spominu, omrežju itd.
 
 - Za globlje analize sistema in uspešnosti, poglejte `stap` ([SystemTap](https://sourceware.org/systemtap/wiki)), [`perf`](https://en.wikipedia.org/wiki/Perf_(Linux)) in [`sysdig`](https://github.com/draios/sysdig).
 
@@ -457,7 +468,7 @@ Nekaj primerov sestavljanja ukazov skupaj:
 
 - `apg`: generira naključna gesla
 
-- `7z`: kompresija datoteke visokega razmerja
+- `xz`: kompresija datoteke visokega razmerja
 
 - `ldd`: informacije dinamične knjižnice
 
@@ -467,15 +478,15 @@ Nekaj primerov sestavljanja ukazov skupaj:
 
 - `strace`: razhroščevanje sistemskega klica
 
-- `mtr`: boljše sledenje usmerjanja za razhroščevanje omrežja
+- [`mtr`](http://www.bitwizard.nl/mtr/): boljše sledenje usmerjanja za razhroščevanje omrežja
 
 - `cssh`: vizualna sočasna lupina
 
 - `rsync`: sinhronizacija datotek in map preko SSH ali v lokalnem datotečnem sistemu
 
-- `wireshark` in `tshark`: zajem paketov in razhroščevanje omrežja
+- [`wireshark`](https://wireshark.org/) in [`tshark`](https://www.wireshark.org/docs/wsug_html_chunked/AppToolstshark.html): zajem paketov in razhroščevanje omrežja
 
-- `ngrep`: grep za nivo omrežja
+- [`ngrep`](http://ngrep.sourceforge.net/): grep za nivo omrežja
 
 - `host` in `dig`: pogled DNS
 
@@ -499,9 +510,9 @@ Nekaj primerov sestavljanja ukazov skupaj:
 
 - `id`: informacije identifikacije uporabnika/skupine
 
-- `sar`: statistika zgodovine sistema
+- [`sar`](http://sebastien.godard.pagesperso-orange.fr/): statistika zgodovine sistema
 
-- `iftop` ali `nethogs`: izkoriščenost omrežja po vtičnici ali procesu
+- [`iftop`](http://www.ex-parrot.com/~pdw/iftop/) ali [`nethogs`](https://github.com/raboof/nethogs): izkoriščenost omrežja po vtičnici ali procesu
 
 - `ss`: statistika vtičnice
 
@@ -540,6 +551,10 @@ To so elementi pomembni *samo* za OS X.
 
 ## Samo za Windows
 
+Sledeče velja *samo* za Windows.
+
+- Na Windows 10 lahko uporabite [Bash na Ubuntu na Windows](https://msdn.microsoft.com/commandline/wsl/about), ki ponuja znano okolje Bash z orodji ukazne vrstice Unix. Prednost je, da to omogoča poganjanje programov za Linux na Windows-u. Po drugi strani pa to ne podpira poganjanja Windows programov iz ukazne vrstice Bash.
+
 - Dostopajte do moči lupine Unix na Microsoft Windows z namestitvijo [Cygwin](https://cygwin.com/). Večina stvari opisanih v tem dokumentu bo delala "Out of the Box".
 
 - Namestite dodatne programe Unix z upraviteljem paketov Cygwin.
@@ -555,6 +570,10 @@ To so elementi pomembni *samo* za OS X.
 - Upoštevajte, da pot diska Windows `C:\` postane v Cygwin `/cygdrive/c` in Cigwin-ov `/` se na Windows pojavi pod `C:\cygwin`. Pretvorite med Cygwin in Windows stilom poti datotek s `cygpath`. To je najbolj uporabno v skriptah, ki se sklicujejo na programe Windows.
 
 - Večino opravil sistemske administracije Windows iz ukazne vrstice lahko izvajate tako, da se naučite uporabljati `wmic`.
+
+- Druga opcija, da dobite izgled in občutek Unix-a na Windows-u, je [Cash](https://github.com/dthree/cash). Upoštevajte, da so v tem okolju na voljo le nekateri ukazi Unix in opcije ukazne vrstice.
+
+- Alternativna možnost, da dobite GNU razvojna orodja (kot je GCC) na Windows, je [MinGW](http://www.mingw.org) in njegov [MSYS](http://www.mingw.org/wiki/msys) paket, ki ponuja orodja, kot je bash, gawk, make in grep. MSYS nima na voljo vseh lastnosti v primerjavi s Cygwin. MinGW je posebej uporaben za izdelavo izvornih Windows prenosov orodij Unix.
 
 ## Več virov
 
